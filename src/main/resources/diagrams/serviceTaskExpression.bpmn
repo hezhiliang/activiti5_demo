@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="Examples" xmlns:xsd="http://www.w3.org/2001/XMLSchema" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Examples">
+  <process id="serviceTaskProcess" isExecutable="true" isClosed="false" processType="None">
+    <startEvent id="start"></startEvent>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTask"></sequenceFlow>
+    <serviceTask id="serviceTask" name="调用委托的依赖注入功能" activiti:class="com.example.activitidemo.JavaDelegate.ReverseStringsFieldInjected">
+      <extensionElements>
+        <activiti:field name="text1">
+          <activiti:expression>Welcome to Beijing</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text2">
+          <activiti:expression>Hello Mr. Bai</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text1">
+          <activiti:expression>Welcome to Beijing</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text2">
+          <activiti:expression>Hello Mr. Bai</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow2" sourceRef="serviceTask" targetRef="serviceTask1"></sequenceFlow>
+    <serviceTask id="serviceTask1" name="调用spring bean中的相关的委托bean" activiti:delegateExpression="${delegateExpressionBean}"></serviceTask>
+    <sequenceFlow id="flow3" sourceRef="serviceTask1" targetRef="servicetask2"></sequenceFlow>
+    <serviceTask id="servicetask2" name="调用spring bean中的方法" activiti:expression="#{sentenceGenerator.getSentence()}"></serviceTask>
+    <sequenceFlow id="flow4" sourceRef="servicetask2" targetRef="servicetask3"></sequenceFlow>
+    <serviceTask id="servicetask3" name="Java service invocation" activiti:class="com.example.activitidemo.JavaDelegate.ToUppercase">
+      <extensionElements>
+        <activiti:field name="text">
+          <activiti:string><![CDATA[Hello World]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:string><![CDATA[Hello World]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow5" sourceRef="servicetask3" targetRef="endEvent"></sequenceFlow>
+    <endEvent id="endEvent"></endEvent>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_serviceTaskProcess">
+    <bpmndi:BPMNPlane bpmnElement="serviceTaskProcess" id="BPMNPlane_serviceTaskProcess">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="serviceTask" id="BPMNShape_serviceTask">
+        <omgdc:Bounds height="55.0" width="85.0" x="112.0" y="188.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="serviceTask1" id="BPMNShape_serviceTask1">
+        <omgdc:Bounds height="55.0" width="85.0" x="257.0" y="188.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="85.0" x="402.0" y="188.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="85.0" x="547.0" y="188.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="692.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="55.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="112.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="197.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="257.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="342.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="402.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="487.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="547.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="632.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="serviceTaskLC" isExecutable="true" isClosed="false" processType="None">
+    <startEvent id="_2" name="StartEvent"></startEvent>
+    <serviceTask id="servicetask1" name="class1" activiti:class="com.example.activitidemo.JavaDelegate.ToUppercase">
+      <documentation>通过"字符串"将值注入委托类的字段中</documentation>
+      <extensionElements>
+        <activiti:field name="text">
+          <activiti:string><![CDATA[Hello World]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask2" name="class2" activiti:class="com.example.activitidemo.JavaDelegate.ReverseStringsFieldInjected">
+      <documentation>通过"表达式"将值注入委托类的字段中</documentation>
+      <extensionElements>
+        <activiti:field name="text1">
+          <activiti:expression>${genderBean.getGenderString('male')}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text2">
+          <activiti:expression>Hello ${genderBean.gender == 'male' ? 'Mr.' : 'Mrs.'} ${genderBean.name}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="_4" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <serviceTask id="servicetask3" name="Expression" activiti:expression="#{activityDemoServiceImpl.getText()}"></serviceTask>
+    <sequenceFlow id="flow5" sourceRef="servicetask2" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="servicetask3" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="_2" targetRef="servicetask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_serviceTaskLC">
+    <bpmndi:BPMNPlane bpmnElement="serviceTaskLC" id="BPMNPlane_serviceTaskLC">
+      <bpmndi:BPMNShape bpmnElement="_2" id="BPMNShape__2">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="281.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="106.0" width="221.0" x="480.0" y="245.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="114.0" width="201.0" x="820.0" y="242.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1360.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="1141.0" y="271.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_4" id="BPMNEdge__4">
+        <omgdi:waypoint x="701.0" y="298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="820.0" y="299.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="1021.0" y="299.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1141.0" y="298.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="1246.0" y="298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1360.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="65.0" y="298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="298.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

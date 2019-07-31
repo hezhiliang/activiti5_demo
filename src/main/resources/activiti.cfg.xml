@@ -1,0 +1,29 @@
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+
+    <!--<bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">-->
+
+        <!--<property name="jdbcUrl" value="${spring.datasource.url}" />-->
+        <!--<property name="jdbcDriver" value="${spring.datasource.driver-class-name}" />-->
+        <!--<property name="jdbcUsername" value="${spring.datasource.username}" />-->
+        <!--<property name="jdbcPassword" value="${spring.datasource.password}" />-->
+
+        <!--&lt;!&ndash;true：数据库为更新模式：第一次流程框架运行会创建出对应的数据表，如果已经存在这些表，自动更新相关的表结构  &ndash;&gt;-->
+        <!--<property name="databaseSchemaUpdate" value="true" />-->
+
+        <!--&lt;!&ndash;<property name="jobExecutorActivate" value="false" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="asyncExecutorEnabled" value="true" />&ndash;&gt;-->
+        <!--<property name="asyncExecutorActivate" value="false"/>-->
+
+        <!--&lt;!&ndash;邮件不用配置，默认使用localhost &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="mailServerHost" value="mail.my-corp.com" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="mailServerPort" value="5025" />&ndash;&gt;-->
+
+        <!--&lt;!&ndash;解决中文乱码&ndash;&gt;-->
+        <!--<property name="activityFontName" value="宋体"/>-->
+        <!--<property name="annotationFontName" value="宋体"/>-->
+        <!--<property name="labelFontName" value="宋体"/>-->
+    <!--</bean>-->
+
+<!--</beans>-->

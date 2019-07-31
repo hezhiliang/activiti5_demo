@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="Examples">
+
+    <process id="serviceTaskProcess">
+        <startEvent id="start"  />
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="serviceTask" />
+
+        <!-- 调用委托类的依赖注入功能 -->
+        <serviceTask id="serviceTask" name="Java service invocation"
+                     activiti:class="com.example.activitidemo.JavaDelegate.ReverseStringsFieldInjected">
+            <extensionElements>
+                <activiti:field name="text1">
+                    <activiti:expression>Welcome to Beijing</activiti:expression>
+                </activiti:field>
+                <activiti:field name="text2">
+                    <activiti:expression>Hello Mr. Bai</activiti:expression>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+
+        <sequenceFlow id="flow2" sourceRef="serviceTask" targetRef="serviceTask1" />
+
+        <!-- 调用spring bean中的相关的委托bean -->
+        <serviceTask id="serviceTask1" activiti:delegateExpression="${delegateExpressionBean}" />
+
+
+
+        <sequenceFlow id="flow3" sourceRef="serviceTask1" targetRef="servicetask2" />
+
+
+        <!-- 调用spring bean中的方法 -->
+        <serviceTask id="servicetask2"
+                     name="My Java Service Task"
+                     activiti:expression="#{sentenceGenerator.getSentence()}" />
+
+        <sequenceFlow id="flow4" sourceRef="servicetask2" targetRef="servicetask3" />
+
+        <!-- 调用spring bean中的相关的委托bean -->
+        <serviceTask id="servicetask3"
+                     name="Java service invocation"
+                     activiti:class="com.example.activitidemo.JavaDelegate.ToUppercase">
+            <extensionElements>
+                <activiti:field name="text" stringValue="Hello World" />
+            </extensionElements>
+        </serviceTask>
+
+        <sequenceFlow id="flow5" sourceRef="servicetask3" targetRef="endEvent" />
+        <endEvent id="endEvent" />
+    </process>
+
+</definitions>
